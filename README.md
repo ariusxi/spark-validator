@@ -1,29 +1,73 @@
-# README #
+# @spark/validator #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Módulo para validação completa de estrutura de dados
 
-### What is this repository for? ###
+### Tecnologias utilizadas ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Node.js
+* POO
 
-### How do I get set up? ###
+### Como ele funciona ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Basicamente é passado uma estrutura de dados com campos específicos onde ele valida por completo a árvore de dados indexando cada campo identificado como vazio ou inválido.
+
+### Exemplos de execução ###
+
+```javascript
+const Spark = require('spark-validator')
+
+const dataFields = {
+    name: '',
+    cellphone: ''
+}
+
+/**
+ * Utilizando o método .validate() é possível validar um objeto mapeando todos os campos vazios encontrados 
+ */
+const emptyFields = Spark.validate(dataFields)
+
+/**
+ * O resultado dessa execução retornará uma estrutura dessa forma:
+ * Object {fields: ["name", "cellphone"], message: "name, cellphone"}
+ */
+
+/**
+ * Também é possivel denominar campos para serem ignorados na validação, basta adicionar um array de objetos contendo fieldName como atributo junto com o nome do campo a ser ignora
+ */
+
+const emptyFields = Spark.validate(dataFields, [{
+    fieldName: 'name',
+}])
+
+/**
+ * O resultado dessa execução retornará uma estrutura dessa forma:
+ * Object {fields: ["cellphone"], message: "cellphone"}
+ */
+
+/**
+ * Também é possível denominar condições para que o campo seja uma exceção, basta adicionar mais um atributo no objeto de exçeção chamado condition ao qual ele respeitará a condição para ser ignorado
+ */
+
+const emptyFields = Spark.validate(dataFields, [{
+    fieldName: 'cellphone',
+    condition: dataFields.cellphone === '',
+}])
+
+/**
+ *  O resultado dessa execução retornará uma estrutura dessa forma:
+ * Object {fields: ["name"], message: "name"}
+ */
+
+
+```
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* Validação de estrutura de dados ✓
+* Campos de exceção ✓
+* Condições para campos serem exceção ✓
+* Condições para campos serem exceção por tipo ✓
 
-### Who do I talk to? ###
+### Colaboradores ###
 
-* Repo owner or admin
-* Other community or team contact
+* Matchbox Brasil
