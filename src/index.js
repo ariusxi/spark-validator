@@ -4,6 +4,10 @@
  */
 class Validator {
 
+    /**
+     * Creates an instance of Validator.
+     * @memberof Validator
+     */
     constructor() {
 
     }
