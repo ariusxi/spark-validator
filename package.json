@@ -1,0 +1,8 @@
+{
+  "name": "@spark/validator",
+  "version": "0.0.1",
+  "author": "Matchbox Brasil",
+  "description": "Script para validação de estrutura de dados",
+  "main": "src/index.js",
+  "license": "MIT"
+}
