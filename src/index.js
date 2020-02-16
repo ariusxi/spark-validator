@@ -39,11 +39,11 @@ class Validator {
         Object.keys(data).forEach((inputName) => {
             if (!this.validateExceptionFields(inputName, exceptionFields)) {
                 // Caso o indice atual seja do tipo array, ele deve validar a quantidade de indices
-				if (Array.isArray(data[safeKey(inputName)]) && data[safeKey(inputName)].length == 0) {
+				if (Array.isArray(data[inputName]) && data[inputName].length == 0) {
 					emptyFields.push(inputName)
 				// Caso ele seja um array e contenha mais de um indice ele deve percorrer cada indice o validando
-				} else if (Array.isArray(data[safeKey(inputName)])) {
-					data[safeKey(inputName)].forEach((dataField, index) => {
+				} else if (Array.isArray(data[inputName])) {
+					data[inputName].forEach((dataField, index) => {
 						if (typeof dataField !== 'object' && dataField === '') {
 							emptyFields.push(`${inputName}.${index}`)
 						} else {
@@ -53,16 +53,16 @@ class Validator {
 						}
 					})
 				// Caso ele seja do tipo objeto, ele deve percorrer cada atributo do objeto validando se esta vazio
-				} else if (typeof data[safeKey(inputName)] == 'object') {
-					if (data[safeKey(inputName)] == null) {
+				} else if (typeof data[inputName] == 'object') {
+					if (data[inputName] == null) {
 						emptyFields.push(inputName)
 					} else {
-						const tempEmptyFields = this.getAllEmptyFields(data[safeKey(inputName)], exceptionFields)
+						const tempEmptyFields = this.getAllEmptyFields(data[inputName], exceptionFields)
 						const filteredNameFields = tempEmptyFields.map((emptyFieldName) => `${inputName}.${emptyFieldName}`)
 						emptyFields = [...emptyFields, ...filteredNameFields]
 					}
 				// Caso ele seja uma string ele deve apenas validar se ela esta vazia
-				} else if (typeof data[safeKey(inputName)] === 'string' && data[safeKey(inputName)] === '') {
+				} else if (typeof data[inputName] === 'string' && data[inputName] === '') {
 					emptyFields.push(inputName)
 				}
             }
